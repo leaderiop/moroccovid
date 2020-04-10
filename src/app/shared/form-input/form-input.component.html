@@ -1,0 +1,23 @@
+<ion-item class=" ">
+  <ion-label position="floating">{{ placeHolder }}</ion-label>
+  <ion-input [type]="type" [formControl]="controler"></ion-input>
+</ion-item>
+<div class="validation-errors" *ngIf="controler.errors">
+  <ng-container *ngFor="let constraint of keys(controler.errors)">
+    <div
+      class="error-message"
+      *ngIf="
+        controler.hasError(constraint) && (controler.dirty || controler.touched)
+      "
+    >
+      <div
+        *ngIf="keys(validationMessages).indexOf(constraint) > -1; else server"
+      >
+        {{ validationMessages[constraint] }}
+      </div>
+      <ng-template #server>
+        {{ controler.getError(constraint) }}
+      </ng-template>
+    </div>
+  </ng-container>
+</div>
